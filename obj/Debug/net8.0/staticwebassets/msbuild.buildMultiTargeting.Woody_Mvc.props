@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Woody_Mvc.props" />
+</Project>
