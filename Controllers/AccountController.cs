@@ -43,18 +43,21 @@ namespace Woody_Mvc.Controllers
 
             AppUser appUser = new AppUser()
             { 
+               
+                SurName= registerVm.Surname,
              Name = registerVm.Name,
              Email = registerVm.Email,
-             UserName = registerVm.Username,
+             UserName = registerVm.Username
             };
 
             AppUser? user = await _userManager.FindByNameAsync(registerVm.Username);
             if (user != null)
             {
                 ModelState.AddModelError("Username", "Istifadeci adi artiq qebul edilib");
+                return View();
             }
 
-            IdentityResult result = await _userManager.CreateAsync(user, registerVm.Password);
+            IdentityResult result = await _userManager.CreateAsync(appUser, registerVm.Password);
 
             if(!result.Succeeded)
             {
@@ -66,9 +69,9 @@ namespace Woody_Mvc.Controllers
                 return View(registerVm);
             }
 
-            await _userManager.AddToRoleAsync(user, UserRoles.Member.ToString());
+            await _userManager.AddToRoleAsync(appUser, UserRoles.Admin.ToString());
 
-            return RedirectToAction(nameof(Index), "Home");
+            return RedirectToAction("Login");
         }
 
         public IActionResult Login()
@@ -138,7 +141,7 @@ namespace Woody_Mvc.Controllers
 
             }
 
-            return Content("ok");
+            return RedirectToAction("Index","Home");
 
         }
     }

@@ -18,6 +18,8 @@ namespace Woody_Mvc
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
 
+
+
             builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
             {
                 opt.User.RequireUniqueEmail = true;

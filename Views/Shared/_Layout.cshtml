@@ -85,11 +85,19 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-up m-0">
-                        <a class="collapse-item" asp-controller="Account" asp-action="Login">Login</a>
+                        @if(User.Identity.IsAuthenticated){
+                            <a>@User.Identity.Name</a>
+                            <br />
+                            <a class="collapse-item" asp-controller="Account" asp-action="LogOut">Log Out</a>
+                        }
+                        else{
+                            <a class="collapse-item" asp-controller="Account" asp-action="Login">Login</a>
+                            <br />
+                            <a class="collapse-item" asp-controller="Account" asp-action="Register">Register</a>
+                        }
+                        
                         <br />
-                        <a class="collapse-item" asp-controller="Account" asp-action="Register">Register</a>
-                        <br />
-                        <a class="collapse-item" asp-controller="Account" asp-action=" LogOut">Log Out</a>
+                        
                         <a href="404.html" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
